@@ -14,9 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Random;
+
+import static java.nio.file.Files.readAllLines;
+
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -29,7 +33,7 @@ public class BadIOGUI {
 
     private static final String TITLE = "A very simple GUI application";
     private static final String PATH = System.getProperty("user.home")
-            + File.separator
+            + File.separator 
             + BadIOGUI.class.getSimpleName() + ".txt";
     private static final int PROPORTION = 5;
     private final Random randomGenerator = new Random();
@@ -45,6 +49,15 @@ public class BadIOGUI {
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        canvas.add(panel, BorderLayout.CENTER);
+        panel.add(write);
+
+        final JButton read = new JButton("Read from file");
+        panel.add(read);
+
         /*
          * Handlers
          */
@@ -63,6 +76,23 @@ public class BadIOGUI {
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
+
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+
+                try {
+                    final Path path = Paths.get(PATH);
+                    final List<String> lines = readAllLines(path, StandardCharsets.UTF_8);
+                    final var iter = lines.iterator();
+                    while (iter.hasNext()) {
+                        System.out.println(iter.next()); //NOPMD: exercise told me this
+                    }
+                } catch (IOException e2) {
+                    JOptionPane.showMessageDialog(frame, e2, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -90,6 +120,7 @@ public class BadIOGUI {
         /*
          * OK, ready to push the frame onscreen
          */
+        frame.pack();
         frame.setVisible(true);
     }
 

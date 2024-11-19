@@ -8,8 +8,6 @@
 */bin/
 */build/
 
-*/gradle
-*/gradlew
 # files ignored by extension
 *.class
 *.DS_Store
