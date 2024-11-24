@@ -50,7 +50,7 @@ public final class SimpleGUIWithFileChooser {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final JFileChooser chooser = new JFileChooser();
-                final FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "jpeg");
+                final FileNameExtensionFilter filter = new FileNameExtensionFilter(".txt", "txt");
                 chooser.setFileFilter(filter);
                 chooser.setAcceptAllFileFilterUsed(false);
                 chooser.addChoosableFileFilter(filter);
