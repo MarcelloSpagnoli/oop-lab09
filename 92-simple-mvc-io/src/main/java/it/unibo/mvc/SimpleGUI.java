@@ -44,7 +44,7 @@ public final class SimpleGUI {
                 try {
                     ctrl.writeOnCurrentFile(text.getText());
                 } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(save, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
